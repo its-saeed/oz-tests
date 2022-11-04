@@ -239,10 +239,10 @@ contract('Address', function (accounts) {
           inputs: [],
         }, []);
 
-        const [sender] = await ethers.getSigners();
+        const [, ,sender] = await ethers.getSigners();
         const tracker = await balance.tracker(this.contractRecipient.address);
 
-        await sendEths(sender.privateKey, this.mock.address, amount);
+        await sendEths(sender, this.mock.address, amount);
         const receipt = await this.mock.functionCallWithValue(this.contractRecipient.address, abiEncodedCall, amount);
 
         expect(await tracker.delta()).to.be.bignumber.equal(amount);
@@ -251,7 +251,8 @@ contract('Address', function (accounts) {
         await expectEvent.inTransaction(receipt.tx, CallReceiverMock, 'MockFunctionCalled');
       });
 
-      it('calls the requested function with transaction funds', async function () {
+      // FIXME: In https://zilliqa-jira.atlassian.net/browse/ZIL-4981
+      xit('calls the requested function with transaction funds', async function () {
         const abiEncodedCall = web3.eth.abi.encodeFunctionCall({
           name: 'mockFunction',
           type: 'function',
@@ -278,7 +279,8 @@ contract('Address', function (accounts) {
           inputs: [],
         }, []);
 
-        await send.ether(other, this.mock.address, amount);
+        const [, , other] = await ethers.getSigners();
+        await sendEths(other, this.mock.address, amount);
         await expectRevert(
           this.mock.functionCallWithValue(this.contractRecipient.address, abiEncodedCall, amount),
           'Address: low-level call with value failed',
