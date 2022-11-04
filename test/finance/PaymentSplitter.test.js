@@ -2,6 +2,8 @@ const { balance, constants, ether, expectEvent, send, expectRevert } = require('
 const { ZERO_ADDRESS } = constants;
 
 const { expect } = require('chai');
+const { ethers } = require('hardhat');
+const { sendEths } = require('../../scripts/helpers');
 
 const PaymentSplitter = artifacts.require('PaymentSplitter');
 const Token = artifacts.require('ERC20Mock');
@@ -11,41 +13,35 @@ contract('PaymentSplitter', function (accounts) {
 
   const amount = ether('1');
 
-  // FIXME: In https://zilliqa-jira.atlassian.net/browse/ZIL-4899
-  xit('rejects an empty set of payees', async function () {
+  it('rejects an empty set of payees', async function () {
     await expectRevert(PaymentSplitter.new([], []), 'PaymentSplitter: no payees');
   });
 
-  // FIXME: In https://zilliqa-jira.atlassian.net/browse/ZIL-4899
-  xit('rejects more payees than shares', async function () {
+  it('rejects more payees than shares', async function () {
     await expectRevert(PaymentSplitter.new([payee1, payee2, payee3], [20, 30]),
       'PaymentSplitter: payees and shares length mismatch',
     );
   });
 
-  // FIXME: In https://zilliqa-jira.atlassian.net/browse/ZIL-4899
-  xit('rejects more shares than payees', async function () {
+  it('rejects more shares than payees', async function () {
     await expectRevert(PaymentSplitter.new([payee1, payee2], [20, 30, 40]),
       'PaymentSplitter: payees and shares length mismatch',
     );
   });
 
-  // FIXME: In https://zilliqa-jira.atlassian.net/browse/ZIL-4899
-  xit('rejects null payees', async function () {
+  it('rejects null payees', async function () {
     await expectRevert(PaymentSplitter.new([payee1, ZERO_ADDRESS], [20, 30]),
       'PaymentSplitter: account is the zero address',
     );
   });
 
-  // FIXME: In https://zilliqa-jira.atlassian.net/browse/ZIL-4899
-  xit('rejects zero-valued shares', async function () {
+  it('rejects zero-valued shares', async function () {
     await expectRevert(PaymentSplitter.new([payee1, payee2], [20, 0]),
       'PaymentSplitter: shares are 0',
     );
   });
 
-  // FIXME: In https://zilliqa-jira.atlassian.net/browse/ZIL-4899
-  xit('rejects repeated payees', async function () {
+  it('rejects repeated payees', async function () {
     await expectRevert(PaymentSplitter.new([payee1, payee1], [20, 30]),
       'PaymentSplitter: account already has shares',
     );
@@ -73,9 +69,9 @@ contract('PaymentSplitter', function (accounts) {
     });
 
     describe('accepts payments', function () {
-      // FIXME: In https://zilliqa-jira.atlassian.net/browse/ZIL-4954
-      xit('Ether', async function () {
-        await send.ether(owner, this.contract.address, amount);
+      it('Ether', async function () {
+        const [owner] = await ethers.getSigners();
+        await sendEths(owner, this.contract.address, amount);
 
         expect(await balance.current(this.contract.address)).to.be.bignumber.equal(amount);
       });
@@ -99,15 +95,14 @@ contract('PaymentSplitter', function (accounts) {
 
     describe('release', function () {
       describe('Ether', function () {
-        // FIXME: In https://zilliqa-jira.atlassian.net/browse/ZIL-4899
-        xit('reverts if no funds to claim', async function () {
+        it('reverts if no funds to claim', async function () {
           await expectRevert(this.contract.release(payee1),
             'PaymentSplitter: account is not due payment',
           );
         });
-        // FIXME: In https://zilliqa-jira.atlassian.net/browse/ZIL-4899
-        xit('reverts if non-payee want to claim', async function () {
-          await send.ether(payer1, this.contract.address, amount);
+        it('reverts if non-payee want to claim', async function () {
+          const [, payer] = await ethers.getSigners();
+          await sendEths(payer, this.contract.address, amount);
           await expectRevert(this.contract.release(nonpayee1),
             'PaymentSplitter: account has no shares',
           );
@@ -115,14 +110,12 @@ contract('PaymentSplitter', function (accounts) {
       });
 
       describe('Token', function () {
-        // FIXME: In https://zilliqa-jira.atlassian.net/browse/ZIL-4899
-        xit('reverts if no funds to claim', async function () {
+        it('reverts if no funds to claim', async function () {
           await expectRevert(this.contract.release(this.token.address, payee1),
             'PaymentSplitter: account is not due payment',
           );
         });
-        // FIXME: In https://zilliqa-jira.atlassian.net/browse/ZIL-4899
-        xit('reverts if non-payee want to claim', async function () {
+        it('reverts if non-payee want to claim', async function () {
           await this.token.transfer(this.contract.address, amount, { from: owner });
           await expectRevert(this.contract.release(this.token.address, nonpayee1),
             'PaymentSplitter: account has no shares',
@@ -132,9 +125,9 @@ contract('PaymentSplitter', function (accounts) {
     });
 
     describe('tracks releasable and released', function () {
-      // FIXME: In https://zilliqa-jira.atlassian.net/browse/ZIL-4954
-      xit('Ether', async function () {
-        await send.ether(payer1, this.contract.address, amount);
+      it('Ether', async function () {
+        const [, payer] = await ethers.getSigners();
+        await sendEths(payer, this.contract.address, amount);
         const payment = amount.divn(10);
         expect(await this.contract.releasable(payee2)).to.be.bignumber.equal(payment);
         await this.contract.release(payee2);
@@ -153,9 +146,9 @@ contract('PaymentSplitter', function (accounts) {
     });
 
     describe('distributes funds to payees', function () {
-      // FIXME: In https://zilliqa-jira.atlassian.net/browse/ZIL-4954
-      xit('Ether', async function () {
-        await send.ether(payer1, this.contract.address, amount);
+      it('Ether', async function () {
+        const [, payer] = await ethers.getSigners();
+        await sendEths(payer, this.contract.address, amount);
 
         // receive funds
         const initBalance = await balance.current(this.contract.address);
