@@ -20,7 +20,8 @@ const {
 const ERC777 = artifacts.require('ERC777Mock');
 const ERC777SenderRecipientMock = artifacts.require('ERC777SenderRecipientMock');
 
-contract('ERC777', function (accounts) {
+// FIXME: In ZIL-4983
+contract.skip('ERC777', function (accounts) {
   const [ registryFunder, holder, defaultOperatorA, defaultOperatorB, newOperator, anyone ] = accounts;
 
   const initialSupply = new BN('10000');
@@ -254,7 +255,7 @@ contract('ERC777', function (accounts) {
             });
 
             // FIXME: In https://zilliqa-jira.atlassian.net/browse/ZIL-4899
-            xit('with requireReceptionAck', async function () {
+            it('with requireReceptionAck', async function () {
               await expectRevert(
                 this.token.mintInternalExtended(
                   this.recipient,
@@ -284,7 +285,7 @@ contract('ERC777', function (accounts) {
             });
 
             // FIXME: In https://zilliqa-jira.atlassian.net/browse/ZIL-4899
-            xit('with requireReceptionAck', async function () {
+            it('with requireReceptionAck', async function () {
               await expectRevert(
                 this.token.mintInternalExtended(
                   this.recipient,
@@ -308,14 +309,14 @@ contract('ERC777', function (accounts) {
       });
 
       // FIXME: In https://zilliqa-jira.atlassian.net/browse/ZIL-4899
-      xit('reverts when self-authorizing', async function () {
+      it('reverts when self-authorizing', async function () {
         await expectRevert(
           this.token.authorizeOperator(holder, { from: holder }), 'ERC777: authorizing self as operator',
         );
       });
 
       // FIXME: In https://zilliqa-jira.atlassian.net/browse/ZIL-4899
-      xit('reverts when self-revoking', async function () {
+      it('reverts when self-revoking', async function () {
         await expectRevert(
           this.token.revokeOperator(holder, { from: holder }), 'ERC777: revoking self as operator',
         );
@@ -379,7 +380,7 @@ contract('ERC777', function (accounts) {
         });
 
         // FIXME: In https://zilliqa-jira.atlassian.net/browse/ZIL-4899
-        xit('cannot be revoked for themselves', async function () {
+        it('cannot be revoked for themselves', async function () {
           await expectRevert(
             this.token.revokeOperator(defaultOperatorA, { from: defaultOperatorA }),
             'ERC777: revoking self as operator',
@@ -433,7 +434,7 @@ contract('ERC777', function (accounts) {
             });
 
             // FIXME: In https://zilliqa-jira.atlassian.net/browse/ZIL-4899
-            xit('send reverts', async function () {
+            it('send reverts', async function () {
               await expectRevert(
                 this.token.send(this.recipient, amount, data, { from: holder }),
                 'ERC777: token recipient contract has no implementer for ERC777TokensRecipient',
@@ -441,7 +442,7 @@ contract('ERC777', function (accounts) {
             });
 
             // FIXME: In https://zilliqa-jira.atlassian.net/browse/ZIL-4899
-            xit('operatorSend reverts', async function () {
+            it('operatorSend reverts', async function () {
               await expectRevert(
                 this.token.operatorSend(this.sender, this.recipient, amount, data, operatorData, { from: operator }),
                 'ERC777: token recipient contract has no implementer for ERC777TokensRecipient',
@@ -449,7 +450,7 @@ contract('ERC777', function (accounts) {
             });
 
             // FIXME: In https://zilliqa-jira.atlassian.net/browse/ZIL-4899
-            xit('mint (internal) reverts', async function () {
+            it('mint (internal) reverts', async function () {
               await expectRevert(
                 this.token.mintInternal(this.recipient, amount, data, operatorData, { from: operator }),
                 'ERC777: token recipient contract has no implementer for ERC777TokensRecipient',
