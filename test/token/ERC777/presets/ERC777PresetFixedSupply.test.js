@@ -4,7 +4,8 @@ const { expect } = require('chai');
 
 const ERC777PresetFixedSupply = artifacts.require('ERC777PresetFixedSupply');
 
-contract('ERC777PresetFixedSupply', function (accounts) {
+// FIXME: In ZIL-4983
+contract.skip('ERC777PresetFixedSupply', function (accounts) {
   const [registryFunder, owner, defaultOperatorA, defaultOperatorB, anyone] = accounts;
 
   const initialSupply = new BN('10000');
