@@ -26,8 +26,7 @@ contract('Votes', function (accounts) {
       this.tx3 = await this.votes.mint(account3, 1);
     });
 
-    // FIXME: In https://zilliqa-jira.atlassian.net/browse/ZIL-4899
-    xit('reverts if block number >= current block', async function () {
+    it('reverts if block number >= current block', async function () {
       await expectRevert(
         this.votes.getPastTotalSupply(this.tx3.receipt.blockNumber + 1),
         'Votes: block not yet mined',

@@ -20,8 +20,7 @@ contract('VestingWallet', function (accounts) {
     this.mock = await VestingWallet.new(beneficiary, this.start, duration);
   });
 
-  // FIXME: In https://zilliqa-jira.atlassian.net/browse/ZIL-4899
-  xit('rejects zero address for beneficiary', async function () {
+  it('rejects zero address for beneficiary', async function () {
     await expectRevert(
       VestingWallet.new(constants.ZERO_ADDRESS, this.start, duration),
       'VestingWallet: beneficiary is zero address',

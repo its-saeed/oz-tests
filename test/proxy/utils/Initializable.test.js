@@ -39,15 +39,13 @@ contract('Initializable', function (accounts) {
         expect(await this.contract.isInitializing()).to.equal(false);
       });
 
-      // FIXME: In https://zilliqa-jira.atlassian.net/browse/ZIL-4899
-      xit('initializer does not run again', async function () {
+      it('initializer does not run again', async function () {
         await expectRevert(this.contract.initialize(), 'Initializable: contract is already initialized');
       });
     });
 
     describe('nested under an initializer', function () {
-      // FIXME: In https://zilliqa-jira.atlassian.net/browse/ZIL-4899
-      xit('initializer modifier reverts', async function () {
+      it('initializer modifier reverts', async function () {
         await expectRevert(this.contract.initializerNested(), 'Initializable: contract is already initialized');
       });
 
@@ -57,8 +55,7 @@ contract('Initializable', function (accounts) {
       });
     });
 
-    // FIXME: In https://zilliqa-jira.atlassian.net/browse/ZIL-4899
-    xit('cannot call onlyInitializable function outside the scope of an initializable function', async function () {
+    it('cannot call onlyInitializable function outside the scope of an initializable function', async function () {
       await expectRevert(this.contract.initializeOnlyInitializing(), 'Initializable: contract is not initializing');
     });
   });
@@ -99,8 +96,7 @@ contract('Initializable', function (accounts) {
       expect(await this.contract.counter()).to.be.bignumber.equal('2');
     });
 
-    // FIXME: In https://zilliqa-jira.atlassian.net/browse/ZIL-4899
-    xit('cannot nest reinitializers', async function () {
+    it('cannot nest reinitializers', async function () {
       expect(await this.contract.counter()).to.be.bignumber.equal('0');
       await expectRevert(this.contract.nestedReinitialize(2, 2), 'Initializable: contract is already initialized');
       await expectRevert(this.contract.nestedReinitialize(2, 3), 'Initializable: contract is already initialized');
@@ -121,20 +117,17 @@ contract('Initializable', function (accounts) {
     });
 
     describe('contract locking', function () {
-      // FIXME: In https://zilliqa-jira.atlassian.net/browse/ZIL-4899
-      xit('prevents initialization', async function () {
+      it('prevents initialization', async function () {
         await this.contract.disableInitializers();
         await expectRevert(this.contract.initialize(), 'Initializable: contract is already initialized');
       });
 
-      // FIXME: In https://zilliqa-jira.atlassian.net/browse/ZIL-4899
-      xit('prevents re-initialization', async function () {
+      it('prevents re-initialization', async function () {
         await this.contract.disableInitializers();
         await expectRevert(this.contract.reinitialize(255), 'Initializable: contract is already initialized');
       });
 
-      // FIXME: In https://zilliqa-jira.atlassian.net/browse/ZIL-4899
-      xit('can lock contract after initialization', async function () {
+      it('can lock contract after initialization', async function () {
         await this.contract.initialize();
         await this.contract.disableInitializers();
         await expectRevert(this.contract.reinitialize(255), 'Initializable: contract is already initialized');
@@ -211,8 +204,7 @@ contract('Initializable', function (accounts) {
   });
 
   describe('disabling initialization', function () {
-    // FIXME: In https://zilliqa-jira.atlassian.net/browse/ZIL-4899
-    xit('old and new patterns in bad sequence', async function () {
+    it('old and new patterns in bad sequence', async function () {
       await expectRevert(DisableBad1.new(), 'Initializable: contract is already initialized');
       await expectRevert(DisableBad2.new(), 'Initializable: contract is initializing');
     });

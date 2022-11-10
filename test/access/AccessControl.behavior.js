@@ -29,8 +29,7 @@ function shouldBehaveLikeAccessControl (errorPrefix, admin, authorized, other, o
       await this.accessControl.grantRole(ROLE, authorized, { from: admin });
     });
 
-    // FIXME: In https://zilliqa-jira.atlassian.net/browse/ZIL-4899
-    xit('non-admin cannot grant role to other accounts', async function () {
+    it('non-admin cannot grant role to other accounts', async function () {
       await expectRevert(
         this.accessControl.grantRole(ROLE, authorized, { from: other }),
         `${errorPrefix}: account ${other.toLowerCase()} is missing role ${DEFAULT_ADMIN_ROLE}`,
@@ -64,8 +63,7 @@ function shouldBehaveLikeAccessControl (errorPrefix, admin, authorized, other, o
         expect(await this.accessControl.hasRole(ROLE, authorized)).to.equal(false);
       });
 
-      // FIXME: In https://zilliqa-jira.atlassian.net/browse/ZIL-4899
-      xit('non-admin cannot revoke role', async function () {
+      it('non-admin cannot revoke role', async function () {
         await expectRevert(
           this.accessControl.revokeRole(ROLE, authorized, { from: other }),
           `${errorPrefix}: account ${other.toLowerCase()} is missing role ${DEFAULT_ADMIN_ROLE}`,
@@ -99,8 +97,7 @@ function shouldBehaveLikeAccessControl (errorPrefix, admin, authorized, other, o
         expect(await this.accessControl.hasRole(ROLE, authorized)).to.equal(false);
       });
 
-      // FIXME: In https://zilliqa-jira.atlassian.net/browse/ZIL-4899
-      xit('only the sender can renounce their roles', async function () {
+      it('only the sender can renounce their roles', async function () {
         await expectRevert(
           this.accessControl.renounceRole(ROLE, authorized, { from: admin }),
           `${errorPrefix}: can only renounce roles for self`,
@@ -143,16 +140,14 @@ function shouldBehaveLikeAccessControl (errorPrefix, admin, authorized, other, o
       expectEvent(receipt, 'RoleRevoked', { account: authorized, role: ROLE, sender: otherAdmin });
     });
 
-    // FIXME: In https://zilliqa-jira.atlassian.net/browse/ZIL-4899
-    xit('a role\'s previous admins no longer grant roles', async function () {
+    it('a role\'s previous admins no longer grant roles', async function () {
       await expectRevert(
         this.accessControl.grantRole(ROLE, authorized, { from: admin }),
         `${errorPrefix}: account ${admin.toLowerCase()} is missing role ${OTHER_ROLE}`,
       );
     });
 
-    // FIXME: In https://zilliqa-jira.atlassian.net/browse/ZIL-4899
-    xit('a role\'s previous admins no longer revoke roles', async function () {
+    it('a role\'s previous admins no longer revoke roles', async function () {
       await expectRevert(
         this.accessControl.revokeRole(ROLE, authorized, { from: admin }),
         `${errorPrefix}: account ${admin.toLowerCase()} is missing role ${OTHER_ROLE}`,
@@ -169,16 +164,14 @@ function shouldBehaveLikeAccessControl (errorPrefix, admin, authorized, other, o
       await this.accessControl.senderProtected(ROLE, { from: authorized });
     });
 
-    // FIXME: In https://zilliqa-jira.atlassian.net/browse/ZIL-4899
-    xit('revert if sender doesn\'t have role #1', async function () {
+    it('revert if sender doesn\'t have role #1', async function () {
       await expectRevert(
         this.accessControl.senderProtected(ROLE, { from: other }),
         `${errorPrefix}: account ${other.toLowerCase()} is missing role ${ROLE}`,
       );
     });
 
-    // FIXME: In https://zilliqa-jira.atlassian.net/browse/ZIL-4899
-    xit('revert if sender doesn\'t have role #2', async function () {
+    it('revert if sender doesn\'t have role #2', async function () {
       await expectRevert(
         this.accessControl.senderProtected(OTHER_ROLE, { from: authorized }),
         `${errorPrefix}: account ${authorized.toLowerCase()} is missing role ${OTHER_ROLE}`,

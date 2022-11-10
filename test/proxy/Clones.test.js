@@ -26,7 +26,7 @@ contract('Clones', function (accounts) {
     });
 
     // FIXME: In https://zilliqa-jira.atlassian.net/browse/ZIL-4899
-    xit('address already used', async function () {
+    it('address already used', async function () {
       const implementation = web3.utils.randomHex(20);
       const salt = web3.utils.randomHex(32);
       const factory = await ClonesMock.new();

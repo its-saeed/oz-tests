@@ -47,7 +47,7 @@ contract('UUPSUpgradeable', function (accounts) {
 
   // delegate to a non existing upgradeTo function causes a low level revert
   // FIXME: In https://zilliqa-jira.atlassian.net/browse/ZIL-4899
-  xit('reject upgrade to non uups implementation', async function () {
+  it('reject upgrade to non uups implementation', async function () {
     await expectRevert(
       this.instance.upgradeTo(this.implUpgradeNonUUPS.address),
       'ERC1967Upgrade: new implementation is not UUPS',
@@ -55,7 +55,7 @@ contract('UUPSUpgradeable', function (accounts) {
   });
 
   // FIXME: In https://zilliqa-jira.atlassian.net/browse/ZIL-4899
-  xit('reject proxy address as implementation', async function () {
+  it('reject proxy address as implementation', async function () {
     const { address } = await ERC1967Proxy.new(this.implInitial.address, '0x');
     const otherInstance = await UUPSUpgradeableMock.at(address);
 

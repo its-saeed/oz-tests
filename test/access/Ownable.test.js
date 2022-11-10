@@ -24,14 +24,12 @@ contract('Ownable', function (accounts) {
       expect(await this.ownable.owner()).to.equal(other);
     });
 
-    // FIXME: In https://zilliqa-jira.atlassian.net/browse/ZIL-4899
-    xit('prevents non-owners from transferring', async function () {
+    it('prevents non-owners from transferring', async function () {
       await expect(this.ownable.transferOwnership(other, { from: other }))
         .to.be.revertedWith('Ownable: caller is not the owner');
     });
 
-    // FIXME: In https://zilliqa-jira.atlassian.net/browse/ZIL-4899
-    xit('guards ownership against stuck state', async function () {
+    it('guards ownership against stuck state', async function () {
       await expectRevert(
         this.ownable.transferOwnership(ZERO_ADDRESS, { from: owner }),
         'Ownable: new owner is the zero address',
@@ -47,8 +45,7 @@ contract('Ownable', function (accounts) {
       expect(await this.ownable.owner()).to.equal(ZERO_ADDRESS);
     });
 
-    // FIXME: In https://zilliqa-jira.atlassian.net/browse/ZIL-4899
-    xit('prevents non-owners from renouncement', async function () {
+    it('prevents non-owners from renouncement', async function () {
       await expectRevert(
         this.ownable.renounceOwnership({ from: other }),
         'Ownable: caller is not the owner',

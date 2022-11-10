@@ -70,8 +70,7 @@ module.exports = function shouldBehaveLikeTransparentUpgradeableProxy (createPro
       });
 
       describe('when the given implementation is the zero address', function () {
-        // FIXME: In https://zilliqa-jira.atlassian.net/browse/ZIL-4899
-        xit('reverts', async function () {
+        it('reverts', async function () {
           await expectRevert(
             this.proxy.upgradeTo(ZERO_ADDRESS, { from }),
             'ERC1967: new implementation is not a contract',
@@ -84,7 +83,7 @@ module.exports = function shouldBehaveLikeTransparentUpgradeableProxy (createPro
       const from = anotherAccount;
 
       // FIXME: In https://zilliqa-jira.atlassian.net/browse/ZIL-4899
-      xit('reverts', async function () {
+      it('reverts', async function () {
         await expectRevert.unspecified(
           this.proxy.upgradeTo(this.implementationV1, { from }),
         );
@@ -141,8 +140,7 @@ module.exports = function shouldBehaveLikeTransparentUpgradeableProxy (createPro
         });
 
         describe('when the sender is not the admin', function () {
-          // FIXME: In https://zilliqa-jira.atlassian.net/browse/ZIL-4899
-          xit('reverts', async function () {
+          it('reverts', async function () {
             await expectRevert.unspecified(
               this.proxy.upgradeToAndCall(this.behavior.address, initializeData, { from: anotherAccount }),
             );
@@ -297,8 +295,7 @@ module.exports = function shouldBehaveLikeTransparentUpgradeableProxy (createPro
     });
 
     describe('when the new proposed admin is the zero address', function () {
-      // FIXME: In https://zilliqa-jira.atlassian.net/browse/ZIL-4899
-      xit('reverts', async function () {
+      it('reverts', async function () {
         await expectRevert(
           this.proxy.changeAdmin(ZERO_ADDRESS, { from: proxyAdminAddress }),
           'ERC1967: new admin is the zero address',
@@ -331,7 +328,7 @@ module.exports = function shouldBehaveLikeTransparentUpgradeableProxy (createPro
     });
 
     // FIXME: In https://zilliqa-jira.atlassian.net/browse/ZIL-4899
-    xit('proxy admin cannot call delegated functions', async function () {
+    it('proxy admin cannot call delegated functions', async function () {
       await expectRevert(
         this.clashing.delegatedFunction({ from: proxyAdminAddress }),
         'TransparentUpgradeableProxy: admin cannot fallback to proxy target',

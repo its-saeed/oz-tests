@@ -80,8 +80,7 @@ function shouldBehaveLikeVotes () {
         expect(await this.votes.getPastVotes(delegatorAddress, receipt.blockNumber)).to.be.bignumber.equal('1');
       });
 
-      // FIXME: In https://zilliqa-jira.atlassian.net/browse/ZIL-4899
-      xit('rejects reused signature', async function () {
+      it('rejects reused signature', async function () {
         const { v, r, s } = fromRpcSig(ethSigUtil.signTypedMessage(
           delegator.getPrivateKey(),
           buildData(this.chainId, this.votes.address, this.name, {
@@ -116,8 +115,7 @@ function shouldBehaveLikeVotes () {
         expect(args.toDelegate).to.be.equal(this.account1Delegatee);
       });
 
-      // FIXME: In https://zilliqa-jira.atlassian.net/browse/ZIL-4899
-      xit('rejects bad nonce', async function () {
+      it('rejects bad nonce', async function () {
         const { v, r, s } = fromRpcSig(ethSigUtil.signTypedMessage(
           delegator.getPrivateKey(),
           buildData(this.chainId, this.votes.address, this.name, {
@@ -132,8 +130,7 @@ function shouldBehaveLikeVotes () {
         );
       });
 
-      // FIXME: In https://zilliqa-jira.atlassian.net/browse/ZIL-4899
-      xit('rejects expired permit', async function () {
+      it('rejects expired permit', async function () {
         const expiry = (await time.latest()) - time.duration.weeks(1);
         const { v, r, s } = fromRpcSig(ethSigUtil.signTypedMessage(
           delegator.getPrivateKey(),
@@ -236,8 +233,7 @@ function shouldBehaveLikeVotes () {
         await this.votes.delegate(this.account1, { from: this.account1 });
       });
 
-      // FIXME: In https://zilliqa-jira.atlassian.net/browse/ZIL-4899
-      xit('reverts if block number >= current block', async function () {
+      it('reverts if block number >= current block', async function () {
         await expectRevert(
           this.votes.getPastTotalSupply(5e10),
           'block not yet mined',
@@ -309,8 +305,7 @@ function shouldBehaveLikeVotes () {
       });
 
       describe('getPastVotes', function () {
-        // FIXME: In https://zilliqa-jira.atlassian.net/browse/ZIL-4899
-        xit('reverts if block number >= current block', async function () {
+        it('reverts if block number >= current block', async function () {
           await expectRevert(
             this.votes.getPastVotes(this.account2, 5e10),
             'block not yet mined',

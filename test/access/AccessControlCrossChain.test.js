@@ -37,8 +37,7 @@ contract('AccessControl', function (accounts) {
       expect(await this.accessControl.crossChainRoleAlias(ROLE)).to.be.bignumber.equal(crossChainRoleAlias(ROLE));
     });
 
-    // FIXME: In https://zilliqa-jira.atlassian.net/browse/ZIL-4899
-    xit('Crosschain calls not authorized to non-aliased addresses', async function () {
+    it('Crosschain calls not authorized to non-aliased addresses', async function () {
       await expectRevert(
         this.bridge.call(
           accounts[0],
