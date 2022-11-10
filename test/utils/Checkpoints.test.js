@@ -34,7 +34,8 @@ contract('Checkpoints', function (accounts) {
       });
     });
 
-    describe('with checkpoints', function () {
+    // FIXME: In https://zilliqa-jira.atlassian.net/browse/ZIL-4998
+    describe.skip('with checkpoints', function () {
       beforeEach('pushing checkpoints', async function () {
         this.tx1 = await this.checkpoint.push(1);
         this.tx2 = await this.checkpoint.push(2);
