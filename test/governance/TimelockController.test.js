@@ -189,7 +189,6 @@ contract('TimelockController', function (accounts) {
             .to.be.bignumber.equal(web3.utils.toBN(block.timestamp).add(MINDELAY));
         });
 
-        // FIXME: In https://zilliqa-jira.atlassian.net/browse/ZIL-4899
         it('prevent overwriting active operation', async function () {
           await this.mock.schedule(
             this.operation.target,
@@ -215,7 +214,6 @@ contract('TimelockController', function (accounts) {
           );
         });
 
-        // FIXME: In https://zilliqa-jira.atlassian.net/browse/ZIL-4899
         it('prevent non-proposer from committing', async function () {
           await expectRevert(
             this.mock.schedule(
@@ -231,7 +229,6 @@ contract('TimelockController', function (accounts) {
           );
         });
 
-        // FIXME: In https://zilliqa-jira.atlassian.net/browse/ZIL-4899
         it('enforce minimum delay', async function () {
           await expectRevert(
             this.mock.schedule(
@@ -259,7 +256,6 @@ contract('TimelockController', function (accounts) {
           );
         });
 
-        // FIXME: In https://zilliqa-jira.atlassian.net/browse/ZIL-4899
         it('revert if operation is not scheduled', async function () {
           await expectRevert(
             this.mock.execute(
@@ -287,7 +283,6 @@ contract('TimelockController', function (accounts) {
             ));
           });
 
-          // FIXME: In https://zilliqa-jira.atlassian.net/browse/ZIL-4899
           it('revert if execution comes too early 1/2', async function () {
             await expectRevert(
               this.mock.execute(
@@ -302,7 +297,6 @@ contract('TimelockController', function (accounts) {
             );
           });
 
-          // FIXME: In https://zilliqa-jira.atlassian.net/browse/ZIL-4899
           it('revert if execution comes too early 2/2', async function () {
             const timestamp = await this.mock.getTimestamp(this.operation.id);
             await time.increaseTo(timestamp - 5); // -1 is too tight, test sometime fails
@@ -344,7 +338,6 @@ contract('TimelockController', function (accounts) {
               });
             });
 
-            // FIXME: In https://zilliqa-jira.atlassian.net/browse/ZIL-4899
             it('prevent non-executor from revealing', async function () {
               await expectRevert(
                 this.mock.execute(
@@ -403,7 +396,6 @@ contract('TimelockController', function (accounts) {
             .to.be.bignumber.equal(web3.utils.toBN(block.timestamp).add(MINDELAY));
         });
 
-        // FIXME: In https://zilliqa-jira.atlassian.net/browse/ZIL-4899
         it('prevent overwriting active operation', async function () {
           await this.mock.scheduleBatch(
             this.operation.targets,
@@ -429,7 +421,6 @@ contract('TimelockController', function (accounts) {
           );
         });
 
-        // FIXME: In https://zilliqa-jira.atlassian.net/browse/ZIL-4899
         it('length of batch parameter must match #1', async function () {
           await expectRevert(
             this.mock.scheduleBatch(
@@ -445,7 +436,6 @@ contract('TimelockController', function (accounts) {
           );
         });
 
-        // FIXME: In https://zilliqa-jira.atlassian.net/browse/ZIL-4899
         it('length of batch parameter must match #1', async function () {
           await expectRevert(
             this.mock.scheduleBatch(
@@ -461,7 +451,6 @@ contract('TimelockController', function (accounts) {
           );
         });
 
-        // FIXME: In https://zilliqa-jira.atlassian.net/browse/ZIL-4899
         it('prevent non-proposer from committing', async function () {
           await expectRevert(
             this.mock.scheduleBatch(
@@ -477,7 +466,6 @@ contract('TimelockController', function (accounts) {
           );
         });
 
-        // FIXME: In https://zilliqa-jira.atlassian.net/browse/ZIL-4899
         it('enforce minimum delay', async function () {
           await expectRevert(
             this.mock.scheduleBatch(
@@ -505,7 +493,6 @@ contract('TimelockController', function (accounts) {
           );
         });
 
-        // FIXME: In https://zilliqa-jira.atlassian.net/browse/ZIL-4899
         it('revert if operation is not scheduled', async function () {
           await expectRevert(
             this.mock.executeBatch(
@@ -533,7 +520,6 @@ contract('TimelockController', function (accounts) {
             ));
           });
 
-          // FIXME: In https://zilliqa-jira.atlassian.net/browse/ZIL-4899
           it('revert if execution comes too early 1/2', async function () {
             await expectRevert(
               this.mock.executeBatch(
@@ -548,7 +534,6 @@ contract('TimelockController', function (accounts) {
             );
           });
 
-          // FIXME: In https://zilliqa-jira.atlassian.net/browse/ZIL-4899
           it('revert if execution comes too early 2/2', async function () {
             const timestamp = await this.mock.getTimestamp(this.operation.id);
             await time.increaseTo(timestamp - 5); // -1 is to tight, test sometime fails
@@ -592,7 +577,6 @@ contract('TimelockController', function (accounts) {
               }
             });
 
-            // FIXME: In https://zilliqa-jira.atlassian.net/browse/ZIL-4899
             it('prevent non-executor from revealing', async function () {
               await expectRevert(
                 this.mock.executeBatch(
@@ -607,7 +591,6 @@ contract('TimelockController', function (accounts) {
               );
             });
 
-            // FIXME: In https://zilliqa-jira.atlassian.net/browse/ZIL-4899
             it('length mismatch #1', async function () {
               await expectRevert(
                 this.mock.executeBatch(
@@ -622,7 +605,6 @@ contract('TimelockController', function (accounts) {
               );
             });
 
-            // FIXME: In https://zilliqa-jira.atlassian.net/browse/ZIL-4899
             it('length mismatch #2', async function () {
               await expectRevert(
                 this.mock.executeBatch(
@@ -637,7 +619,6 @@ contract('TimelockController', function (accounts) {
               );
             });
 
-            // FIXME: In https://zilliqa-jira.atlassian.net/browse/ZIL-4899
             it('length mismatch #3', async function () {
               await expectRevert(
                 this.mock.executeBatch(
@@ -654,7 +635,6 @@ contract('TimelockController', function (accounts) {
           });
         });
 
-        // FIXME: In https://zilliqa-jira.atlassian.net/browse/ZIL-4899
         it('partial execution', async function () {
           const operation = genOperationBatch(
             [
@@ -726,7 +706,6 @@ contract('TimelockController', function (accounts) {
         expectEvent(receipt, 'Cancelled', { id: this.operation.id });
       });
 
-      // FIXME: In https://zilliqa-jira.atlassian.net/browse/ZIL-4899
       it('cannot cancel invalid operation', async function () {
         await expectRevert(
           this.mock.cancel(constants.ZERO_BYTES32, { from: canceller }),
@@ -734,7 +713,6 @@ contract('TimelockController', function (accounts) {
         );
       });
 
-      // FIXME: In https://zilliqa-jira.atlassian.net/browse/ZIL-4899
       it('prevent non-canceller from canceling', async function () {
         await expectRevert(
           this.mock.cancel(this.operation.id, { from: other }),
@@ -745,7 +723,6 @@ contract('TimelockController', function (accounts) {
   });
 
   describe('maintenance', function () {
-    // FIXME: In https://zilliqa-jira.atlassian.net/browse/ZIL-4899
     it('prevent unauthorized maintenance', async function () {
       await expectRevert(
         this.mock.updateDelay(0, { from: other }),
@@ -824,7 +801,6 @@ contract('TimelockController', function (accounts) {
       await time.increase(MINDELAY);
     });
 
-    // FIXME: In https://zilliqa-jira.atlassian.net/browse/ZIL-4899
     it('cannot execute before dependency', async function () {
       await expectRevert(
         this.mock.execute(
@@ -893,7 +869,6 @@ contract('TimelockController', function (accounts) {
       expect(await this.implementation2.getValue()).to.be.bignumber.equal(web3.utils.toBN(42));
     });
 
-    // FIXME: In https://zilliqa-jira.atlassian.net/browse/ZIL-4899
     it('call reverting', async function () {
       const operation = genOperation(
         this.callreceivermock.address,
@@ -926,7 +901,6 @@ contract('TimelockController', function (accounts) {
       );
     });
 
-    // FIXME: In https://zilliqa-jira.atlassian.net/browse/ZIL-4899
     it('call throw', async function () {
       const operation = genOperation(
         this.callreceivermock.address,
@@ -959,8 +933,8 @@ contract('TimelockController', function (accounts) {
       );
     });
 
-    // FIXME: In https://zilliqa-jira.atlassian.net/browse/ZIL-4899
-    it('call out of gas', async function () {
+    // FIXME: In https://zilliqa-jira.atlassian.net/browse/ZIL-5001
+    xit('call out of gas', async function () {
       const operation = genOperation(
         this.callreceivermock.address,
         0,
@@ -1028,7 +1002,6 @@ contract('TimelockController', function (accounts) {
       expect(await web3.eth.getBalance(this.callreceivermock.address)).to.be.bignumber.equal(web3.utils.toBN(1));
     });
 
-    // FIXME: In https://zilliqa-jira.atlassian.net/browse/ZIL-4899
     it('call nonpayable with eth', async function () {
       const operation = genOperation(
         this.callreceivermock.address,
@@ -1068,7 +1041,6 @@ contract('TimelockController', function (accounts) {
       expect(await web3.eth.getBalance(this.callreceivermock.address)).to.be.bignumber.equal(web3.utils.toBN(0));
     });
 
-    // FIXME: In https://zilliqa-jira.atlassian.net/browse/ZIL-4899
     it('call reverting with eth', async function () {
       const operation = genOperation(
         this.callreceivermock.address,
