@@ -25,8 +25,10 @@ contract('Ownable', function (accounts) {
     });
 
     it('prevents non-owners from transferring', async function () {
-      await expect(this.ownable.transferOwnership(other, { from: other }))
-        .to.be.revertedWith('Ownable: caller is not the owner');
+      await expectRevert(
+        this.ownable.transferOwnership(other, { from: other }),
+        'Ownable: caller is not the owner',
+      );
     });
 
     it('guards ownership against stuck state', async function () {
