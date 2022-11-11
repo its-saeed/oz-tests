@@ -10,7 +10,8 @@ contract('ConditionalEscrow', function (accounts) {
     this.escrow = await ConditionalEscrowMock.new({ from: owner });
   });
 
-  context('when withdrawal is allowed', function () {
+  // FIXME: In https://zilliqa-jira.atlassian.net/browse/ZIL-4993
+  context.skip('when withdrawal is allowed', function () {
     beforeEach(async function () {
       await Promise.all(otherAccounts.map(payee => this.escrow.setAllowed(payee, true)));
     });
@@ -25,8 +26,7 @@ contract('ConditionalEscrow', function (accounts) {
       await this.escrow.setAllowed(payee, false);
     });
 
-    // FIXME: In https://zilliqa-jira.atlassian.net/browse/ZIL-4899
-    xit('reverts on withdrawals', async function () {
+    it('reverts on withdrawals', async function () {
       await this.escrow.deposit(payee, { from: owner, value: amount });
 
       await expectRevert(this.escrow.withdraw(payee, { from: owner }),

@@ -327,7 +327,6 @@ module.exports = function shouldBehaveLikeTransparentUpgradeableProxy (createPro
       this.clashing = new ClashingImplementation(this.proxy.address);
     });
 
-    // FIXME: In https://zilliqa-jira.atlassian.net/browse/ZIL-4899
     it('proxy admin cannot call delegated functions', async function () {
       await expectRevert(
         this.clashing.delegatedFunction({ from: proxyAdminAddress }),
