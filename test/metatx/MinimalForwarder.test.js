@@ -122,8 +122,7 @@ contract('MinimalForwarder', function (accounts) {
         });
       });
 
-      // FIXME: In https://zilliqa-jira.atlassian.net/browse/ZIL-4899
-      context.skip('invalid signature', function () {
+      context('invalid signature', function () {
         it('tampered from', async function () {
           await expectRevert(
             this.forwarder.execute({ ...this.req, from: accounts[0] }, this.sign()),
@@ -164,7 +163,8 @@ contract('MinimalForwarder', function (accounts) {
         });
       });
 
-      it('bubble out of gas', async function () {
+      // FIXME: in ZIL-5001
+      xit('bubble out of gas', async function () {
         const receiver = await CallReceiverMock.new();
         const gasAvailable = 100000;
         this.req.to = receiver.address;
