@@ -19,8 +19,10 @@ module.exports = {
       accounts: [
         "c95690aed4461afd835b17492ff889af72267a8bdf7d781e305576cd8f7eb182",
         "05751249685e856287c2b2b9346e70a70e1d750bc69a35cef740f409ad0264ad",
-        "e7f59a4beb997a02a13e0d5e025b39a6f0adc64d37bb1e6a849a4863b4680411",
-        "410b0e0a86625a10c554f8248a77c7198917bd9135c15bb28922684826bb9f14"
+        "f1ee4681e482b71c738e9b7bbd289965fd92c1a4b94aec37cc2f8e3f7854f490",
+        "41feb031ae70d06e1c9cc7f44dcd9435723d8fc9be8dc812653db14979214425",
+        "1c0599ea9b194aac2e4b771ff13d3c710e008446d2a2cd9b5e0b39861d04e1cf",
+        "b768c6d1badbf3defc65c9e92b443d769fc982237138c43844816df882315bd3",
       ],
       zilliqaNetwork: false,
       miningState: true
@@ -60,7 +62,7 @@ module.exports = {
     }
   },
   mocha: {
-    timeout: 40000
+    timeout: 70000
   }
 };
 
