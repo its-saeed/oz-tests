@@ -2,6 +2,10 @@
 
 # Quick start
 
+**Please enable your failing test before running it by**:
+* changing `xit` to `it` 
+* removing `skip` from `describe` or `contract` or `context` blocks.
+
 ```bash
 npm install
 npx hardhat test --grep "something"
