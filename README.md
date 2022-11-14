@@ -4,7 +4,7 @@
 
 ```bash
 npm install
-npx hardhat test --grep "ticket-number"
+npx hardhat test --grep "something"
 ```
 
 # Test accounts
