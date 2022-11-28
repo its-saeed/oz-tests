@@ -35,7 +35,7 @@ contract('Checkpoints', function (accounts) {
     });
 
     // FIXME: In https://zilliqa-jira.atlassian.net/browse/ZIL-4998
-    describe.skip('with checkpoints', function () {
+    describe('with checkpoints', function () {
       beforeEach('pushing checkpoints', async function () {
         this.tx1 = await this.checkpoint.push(1);
         this.tx2 = await this.checkpoint.push(2);
@@ -79,7 +79,8 @@ contract('Checkpoints', function (accounts) {
         });
       }
 
-      it('multiple checkpoints in the same block', async function () {
+      // FIXME: in https://zilliqa-jira.atlassian.net/browse/ZIL-5004
+      xit('multiple checkpoints in the same block', async function () {
         const lengthBefore = await this.checkpoint.length();
 
         await batchInBlock([

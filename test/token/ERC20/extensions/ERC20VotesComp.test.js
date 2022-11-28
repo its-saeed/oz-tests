@@ -58,7 +58,7 @@ contract('ERC20VotesComp', function (accounts) {
 
   describe('set delegation', function () {
     describe('call', function () {
-      // FIXME: evm_mine is missing
+      // FIXME: https://zilliqa-jira.atlassian.net/browse/ZIL-5004
       xit('delegation with balance', async function () {
         await this.token.mint(holder, supply);
         expect(await this.token.delegates(holder)).to.be.equal(ZERO_ADDRESS);

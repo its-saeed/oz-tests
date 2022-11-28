@@ -71,7 +71,8 @@ contract('ERC20Votes', function (accounts) {
 
   describe('set delegation', function () {
     describe('call', function () {
-      it('delegation with balance', async function () {
+      // FIXME: https://zilliqa-jira.atlassian.net/browse/ZIL-5004
+      xit('delegation with balance', async function () {
         await this.token.mint(holder, supply);
         expect(await this.token.delegates(holder)).to.be.equal(ZERO_ADDRESS);
 
@@ -351,7 +352,8 @@ contract('ERC20Votes', function (accounts) {
     });
 
     describe('numCheckpoints', function () {
-      it('returns the number of checkpoints for a delegate', async function () {
+      // FIXME: https://zilliqa-jira.atlassian.net/browse/ZIL-5004
+      xit('returns the number of checkpoints for a delegate', async function () {
         await this.token.transfer(recipient, '100', { from: holder }); //give an account a few tokens for readability
         expect(await this.token.numCheckpoints(other1)).to.be.bignumber.equal('0');
 

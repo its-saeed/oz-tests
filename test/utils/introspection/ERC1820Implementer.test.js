@@ -5,7 +5,8 @@ const { expect } = require('chai');
 
 const ERC1820ImplementerMock = artifacts.require('ERC1820ImplementerMock');
 
-contract('ERC1820Implementer', function (accounts) {
+// FIXME: In https://zilliqa-jira.atlassian.net/browse/ZIL-4983
+contract.skip('ERC1820Implementer', function (accounts) {
   const [ registryFunder, implementee, other ] = accounts;
 
   const ERC1820_ACCEPT_MAGIC = bufferToHex(keccakFromString('ERC1820_ACCEPT_MAGIC'));
