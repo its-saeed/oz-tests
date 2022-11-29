@@ -80,7 +80,7 @@ contract('Checkpoints', function (accounts) {
       }
 
       // FIXME: in https://zilliqa-jira.atlassian.net/browse/ZIL-5004
-      xit('multiple checkpoints in the same block', async function () {
+      it('multiple checkpoints in the same block', async function () {
         const lengthBefore = await this.checkpoint.length();
 
         await batchInBlock([
