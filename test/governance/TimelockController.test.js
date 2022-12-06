@@ -730,7 +730,8 @@ contract('TimelockController', function (accounts) {
       );
     });
 
-    it('timelock scheduled maintenance', async function () {
+    // FIXME: In ZIL-4980
+    xit('timelock scheduled maintenance', async function () {
       const newDelay = time.duration.hours(6);
       const operation = genOperation(
         this.mock.address,
@@ -838,7 +839,8 @@ contract('TimelockController', function (accounts) {
   describe('usage scenario', function () {
     this.timeout(10000);
 
-    it('call', async function () {
+    // FIXME: In ZIL-4980
+    xit('call', async function () {
       const operation = genOperation(
         this.implementation2.address,
         0,
@@ -966,7 +968,8 @@ contract('TimelockController', function (accounts) {
       );
     });
 
-    it('call payable with eth', async function () {
+    // FIXME: ZIL-4980
+    xit('call payable with eth', async function () {
       const operation = genOperation(
         this.callreceivermock.address,
         1,

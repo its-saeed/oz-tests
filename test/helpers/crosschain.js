@@ -12,7 +12,6 @@ class BridgeHelper {
   }
 
   constructor (bridge) {
-    console.log("GAV ", bridge);
     this.bridge = bridge;
     this.address = bridge.address;
   }
@@ -52,7 +51,6 @@ async function deployBridge (type = 'Arbitrum-L1') {
     } catch (error) {
       console.log('KHAR', error);
     }
-    console.log("PASSED", x);
     return x;
   }
 
